@@ -1,59 +1,124 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+enum FileType { pdf, word }
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  FileType _selectedType = FileType.pdf;
 
   @override
   Widget build(BuildContext context) {
     final cards = [
       _OptionCard(
         title: 'Ages 0-4\n  Book 1',
-        icon: Icons.menu_book_outlined,
+        icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
         title: 'Ages 0-4\n  Book 2',
-        icon: Icons.menu_book_outlined,
+        icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
         title: 'Ages 4-8\n  Book 1',
-        icon: Icons.menu_book_outlined,
+        icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
         title: 'Ages 4-8\n  Book 2',
-        icon: Icons.menu_book_outlined,
+        icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
         title: 'Ages 8-12\n    Book 1',
-        icon: Icons.menu_book_outlined,
+        icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
         title: 'Ages 8-12\n    Book 2',
-        icon: Icons.menu_book_outlined,
+        icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
     ];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Choose your child’s age:'),
         ),
-        body: GridView.count(
-          padding: const EdgeInsets.all(24),
-          crossAxisCount: 2,
-          mainAxisSpacing: 24,
-          crossAxisSpacing: 24,
-          children: cards,
+        body: Column(
+          children: [
+            const SizedBox(height: 16),
+            Center(
+              child: SizedBox(
+                width: 204,
+                height: 40,
+                child: Stack(
+                  children: [
+                    AnimatedAlign(
+                      alignment: _selectedType == FileType.pdf
+                          ? Alignment(-1, 0)
+                          : Alignment(1, 0),
+                      duration: const Duration(milliseconds: 150),
+                      child: Container(
+                        width: 102,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.lightGreen,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                    ToggleButtons(
+                      isSelected: [
+                        _selectedType == FileType.pdf,
+                        _selectedType == FileType.word,
+                      ],
+                      onPressed: (index) {
+                        setState(() {
+                          _selectedType =
+                              index == 0 ? FileType.pdf : FileType.word;
+                        });
+                      },
+                      fillColor: Colors.transparent,
+                      selectedColor: Colors.white,
+                      color: Colors.black87,
+                      borderRadius: BorderRadius.circular(8),
+                      borderWidth: 0,
+                      constraints: const BoxConstraints.tightFor(
+                        width: 102,
+                        height: 40,
+                      ),
+                      children: const [
+                        Text('PDF'),
+                        Text('Word'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: GridView.count(
+                padding: const EdgeInsets.all(24),
+                crossAxisCount: 2,
+                mainAxisSpacing: 24,
+                crossAxisSpacing: 24,
+                children: cards,
+              ),
+            ),
+          ],
         ),
-      )
+      ),
     );
   }
 }
@@ -90,6 +155,7 @@ class _OptionCard extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
