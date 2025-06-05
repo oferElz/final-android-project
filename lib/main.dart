@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -18,32 +23,32 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final cards = [
       _OptionCard(
-        title: 'Ages 0-4\n  Book 1',
+        title: 'Luna and the Cloud Balloon',
         icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
-        title: 'Ages 0-4\n  Book 2',
+        title: 'Niko and the Moon Ladder',
         icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
-        title: 'Ages 4-8\n  Book 1',
+        title: 'Leo and the Wishing Feather',
         icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
-        title: 'Ages 4-8\n  Book 2',
+        title: 'Ellie and the Rainy Day Parade',
         icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
-        title: 'Ages 8-12\n    Book 1',
+        title: "The Clockmaker's Apprentice",
         icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
       _OptionCard(
-        title: 'Ages 8-12\n    Book 2',
+        title: 'The Forest Below the Floorboards',
         icon: _selectedType == FileType.pdf ? Icons.picture_as_pdf : Icons.article,
         onTap: () {},
       ),
