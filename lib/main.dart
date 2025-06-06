@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Children Books',
+      title: 'Children Books Download Platform',
       theme: ThemeData(useMaterial3: true),
-      home: const HomePage(),      // <-- all UI now lives here
+      home: const HomePage(),
     );
   }
 }

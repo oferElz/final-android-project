@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
 
-// ─────────────────────────── download helper ───────────────────────────
+
 enum DownloadStatus { notDownloaded, downloading, downloaded }
 
 class DownloadButton extends StatefulWidget {
@@ -18,8 +18,8 @@ class DownloadButton extends StatefulWidget {
 
 class _DownloadButtonState extends State<DownloadButton> {
   DownloadStatus _status = DownloadStatus.notDownloaded;
-  double _progress = 0;               // 0.0 – 1.0
-  String? _localPath;                 // where we saved it
+  double _progress = 0;
+  String? _localPath;
 
   Future<void> _startDownload() async {
     setState(() {
@@ -80,131 +80,104 @@ class _DownloadButtonState extends State<DownloadButton> {
     }
   }
 }
-// ───────────────────────── Book details screen ─────────────────────────
+
 class BookDetailsScreen extends StatelessWidget {
   const BookDetailsScreen({
     super.key,
     required this.title,
+    required this.description,
+    required this.coverUrl,
+    required this.chosenUrl,
     required this.fileType,
   });
 
   final String title;
+  final String description;
+  final String coverUrl;
+  final String chosenUrl;
   final FileType fileType;
-
-  Future<DocumentSnapshot<Map<String, dynamic>>> _fetchDoc() {
-    return FirebaseFirestore.instance
-        .collection('books')
-        .where('title', isEqualTo: title)
-        .limit(1)
-        .get()
-        .then((snap) => snap.docs.first);
-  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-      future: _fetchDoc(),
-      builder: (context, snap) {
-        if (snap.hasError) {
-          return Scaffold(
-            appBar: AppBar(title: Text(title)),
-            body: Center(child: Text('Error: ${snap.error}')),
-          );
-        }
-        if (!snap.hasData) {
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
-        }
-        final data = snap.data!.data()!;
-        final coverUrl = data['cover_url'] as String? ?? '';
-        final description = data['description'] as String? ?? '';
-        final chosenUrl = fileType == FileType.pdf
-            ? data['pdf_url'] as String? ?? ''
-            : data['word_url'] as String? ?? '';
-
-        return Scaffold(
-          body: Stack(
-            children: [
-              Positioned.fill(
-                  child:
-                      Container(color: const Color.fromARGB(188, 77, 46, 11))),
-              if (coverUrl.isNotEmpty)
-                Positioned(
-                  top: MediaQuery.of(context).padding.top + 16,
-                  left: 0,
-                  right: 0,
-                  child: SizedBox(
-                    height: 400,
-                    child: Image.network(
-                      coverUrl,
-                      fit: BoxFit.contain,
-                      alignment: Alignment.topCenter,
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(color: const Color.fromARGB(188, 77, 46, 11)),
+          ),
+          if (coverUrl.isNotEmpty)
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 16,
+              left: 0,
+              right: 0,
+              child: SizedBox(
+                height: 400,
+                child: Image.network(
+                  coverUrl,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+            ),
+          Positioned.fill(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(
+                24,
+                MediaQuery.of(context).padding.top + 56,
+                24,
+                24,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 370),
+                  RichText(
+                    text: TextSpan(
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
+                      children: [
+                        const TextSpan(
+                          text: 'Title: ',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: title),
+                      ],
                     ),
                   ),
-                ),
-              Positioned.fill(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.fromLTRB(
-                    24,
-                    MediaQuery.of(context).padding.top + 56,
-                    24,
-                    24,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 370),
-                      RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.white),
-                          children: [
-                            const TextSpan(
-                              text: 'Title: ',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: title),
-                          ],
+                  const SizedBox(height: 10),
+                  RichText(
+                    text: TextSpan(
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
+                      children: [
+                        const TextSpan(
+                          text: 'Description: ',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.white),
-                          children: [
-                            const TextSpan(
-                              text: 'Description: ',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: description),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-                      DownloadButton(url: chosenUrl),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Chosen format: ${fileType.name.toUpperCase()}',
-                        style: const TextStyle(
-                            fontSize: 16, color: Colors.white70),
-                      ),
-                    ],
+                        TextSpan(text: description),
+                      ],
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 32),
+                  DownloadButton(url: chosenUrl),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Chosen format: ${fileType.name.toUpperCase()}',
+                    style:
+                        const TextStyle(fontSize: 16, color: Colors.white70),
+                  ),
+                ],
               ),
-              Positioned(
-                top: MediaQuery.of(context).padding.top + 8,
-                left: 8,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ),
-            ],
+            ),
           ),
-        );
-      },
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 8,
+            left: 8,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
