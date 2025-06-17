@@ -70,11 +70,11 @@ Here are some screenshots of our application:
    <p align="center">
      <img src="https://github.com/user-attachments/assets/9d7be82a-ffa6-4acb-8964-763bb52a8f96" alt="final android project" width="300"/>
    </p>
-5. **File Opened Offline - word format**
+5. **File Opened - word format**
    <p align="center">
      <img src="https://github.com/user-attachments/assets/7919d046-c7a5-40a2-81d6-2270dfabc6d6" alt="final android project" width="300"/>
    </p>
-6. **File Opened Offline - pdf format**
+6. **File Opened - pdf format**
    <p align="center">
      <img src="https://github.com/user-attachments/assets/1d659f6c-c47f-4cf8-9ab3-243e70048144" alt="final android project" width="300"/>
    </p>
