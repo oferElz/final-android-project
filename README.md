@@ -56,12 +56,11 @@ Here are some screenshots of our application:
 
 1. **Home Page (Grid)**
    <p align="center">
-  <img src="https://github.com/user-attachments/assets/dc566ab0-fefd-4fbd-8ebb-76ea333f5d09" alt="final android project" width="300"/>
+     <img src="https://github.com/user-attachments/assets/dc566ab0-fefd-4fbd-8ebb-76ea333f5d09" alt="final android project" width="300"/>
    </p>
-
 2. **Format Toggle Activated**
    <p align="center">
-     <img src="https://github.com/user-attachments/assets/00702a7c-88b3-4362-ad9c-4d98e77e48e5" alt="final android project" width="300"/>
+    <img src="https://github.com/user-attachments/assets/00702a7c-88b3-4362-ad9c-4d98e77e48e5" alt="final android project" width="300"/>
    </p>
 3. **Book Details Screen**
    <p align="center">
