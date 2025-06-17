@@ -43,17 +43,17 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
               text: TextSpan(
                 style: const TextStyle(
-                    fontSize: 20, color: Colors.white),
-                children: [
-                  const TextSpan(
-                    text: 'Welcome to our \nKids book download platform\n\n',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    
-                  ),
-                  const TextSpan(
-                    text: 'Select a format, then click a book\nto see its description and download it.\nTo go back to the homepage, just tap the back arrow.',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-                  ),
+                  color: Colors.white),
+                  children: [
+                    const TextSpan(
+                      text: 'Welcome to our \nKids book download platform\n\n',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      
+                    ),
+                    const TextSpan(
+                      text: 'Select a format, then click a book\nto see its description and download it.\nTo go back to the homepage, just tap the back arrow.',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                    ),
                 ],
               ),
             ),
@@ -97,11 +97,10 @@ Future<void> _openBook(BuildContext context, String title) async {
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (_) => const Center(child: CircularProgressIndicator()),
+    builder: (_) => const Center(child: CircularProgressIndicator(color: Colors.lightBlueAccent,)),
   );
 
   try {
-    // 1️⃣  Fetch the Firestore doc here
     final snap = await FirebaseFirestore.instance
         .collection('books')
         .where('title', isEqualTo: title)
@@ -117,15 +116,13 @@ Future<void> _openBook(BuildContext context, String title) async {
     final wordUrl    = data['word_url']    as String? ?? '';
     final chosenUrl  = _selectedType == FileType.pdf ? pdfUrl : wordUrl;
 
-    // 2️⃣  Pre-cache the cover image
     if (coverUrl.isNotEmpty && mounted) {
       await precacheImage(NetworkImage(coverUrl), context);
     }
 
     if (!mounted) return;
-    Navigator.of(context, rootNavigator: true).pop(); // close loader
+    Navigator.of(context, rootNavigator: true).pop();
 
-    // 3️⃣  Push details screen with all ready-made data
     Navigator.push(
       context,
       MaterialPageRoute(

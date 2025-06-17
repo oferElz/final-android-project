@@ -159,7 +159,7 @@ class BookDetailsScreen extends StatelessWidget {
                   DownloadButton(url: chosenUrl),
                   const SizedBox(height: 8),
                   Text(
-                    'Chosen format: ${fileType.name.toUpperCase()}',
+                    'Chosen format: ${(fileType.name=='pdf') ? "PDF" : "Word"}',
                     style:
                         const TextStyle(fontSize: 16, color: Colors.white70),
                   ),
