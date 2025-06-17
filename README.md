@@ -78,13 +78,14 @@ Here are some screenshots of our application:
 
 6. **File Opened - word format**
    <p align="center">
-     <img src="https://github.com/user-attachments/assets/7919d046-c7a5-40a2-81d6-2270dfabc6d6" alt="final android project" width="300"/>
+     <img src="https://github.com/user-attachments/assets/c8f42a2c-167f-45fd-b996-29b2117ef319" alt="final android project" width="300"/>
    </p>
+
 7. **File Opened - pdf format**
    <p align="center">
-     <img src="https://github.com/user-attachments/assets/1d659f6c-c47f-4cf8-9ab3-243e70048144" alt="final android project" width="300"/>
+     <img src="https://github.com/user-attachments/assets/1f8b5825-fe7a-4e94-aaa9-f4848f6050f4" alt="final android project" width="300"/>
    </p>
-   
+
 ## Project Outcomes
 
 - Delivered a Flutter application with Firebase integration
