@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
 
-
 enum DownloadStatus { notDownloaded, downloading, downloaded }
 
 class DownloadButton extends StatefulWidget {
@@ -19,7 +18,7 @@ class _DownloadButtonState extends State<DownloadButton> {
   DownloadStatus _status = DownloadStatus.notDownloaded;
   double _progress = 0;
   String? _localPath;
-
+  //Start file download and update progress indicator
   Future<void> _startDownload() async {
     setState(() {
       _status = DownloadStatus.downloading;
@@ -27,11 +26,13 @@ class _DownloadButtonState extends State<DownloadButton> {
     });
 
     try {
+      //Determine local storage directory and filename- create saving path
       final dir = await getApplicationDocumentsDirectory();
       final fileName = widget.url.split('/').last.split('?').first;
       final savePath = '${dir.path}/$fileName';
 
       await Dio().download(
+        //Download complete, save path for opening later
         widget.url,
         savePath,
         onReceiveProgress: (r, t) {
@@ -54,6 +55,7 @@ class _DownloadButtonState extends State<DownloadButton> {
     }
   }
 
+  //Render UI based on current download status
   @override
   Widget build(BuildContext context) {
     switch (_status) {
@@ -80,6 +82,7 @@ class _DownloadButtonState extends State<DownloadButton> {
   }
 }
 
+//“Screen showing cover image, title, description, and download/open action.
 class BookDetailsScreen extends StatelessWidget {
   const BookDetailsScreen({
     super.key,

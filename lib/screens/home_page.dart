@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   FileType _selectedType = FileType.pdf;
-
+  //Available story titles
   static const _books = [
     'Luna and the Cloud Balloon',
     'Niko and the Moon Ladder',
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     "The Clockmaker's Apprentice",
     'The Forest Below the Floorboards',
   ];
-
+  //Available Background images
   static const _images = [
     'assets/zeroToFour.png',
     'assets/zeroToFour.png',
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
         color:const Color.fromARGB(122, 172, 118, 57),
         child: Column(
           children: [
-            const SizedBox(height: 45),
+            const SizedBox(height: 55),
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Expanded(
+              //Display all book options in 2 columns grid.
               child: GridView.count(
                 padding: const EdgeInsets.only(left: 24, right: 24, top: 5),
                 crossAxisCount: 2,
@@ -80,11 +81,13 @@ class _HomePageState extends State<HomePage> {
                           width: 20,
                           height: 20,
                         ),
+                    //Call method to open book + show loading spinner
                     onTap: () => _openBook(context, title),
                   );
                 }).toList(),
               ),
             ),
+            //Our toggle button method to select pdf or word format
             _buildToggle(),
             const SizedBox(height: 20),
           ],
@@ -94,12 +97,13 @@ class _HomePageState extends State<HomePage> {
   }
   
 Future<void> _openBook(BuildContext context, String title) async {
+  //Loading UI
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (_) => const Center(child: CircularProgressIndicator(color: Colors.lightBlueAccent,)),
   );
-
+  //Fetch data from Firestore for a selected book - cover img, description, URLs
   try {
     final snap = await FirebaseFirestore.instance
         .collection('books')
@@ -122,7 +126,7 @@ Future<void> _openBook(BuildContext context, String title) async {
 
     if (!mounted) return;
     Navigator.of(context, rootNavigator: true).pop();
-
+    //Once everything is loaded, go to general details screen with specific book details
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -185,7 +189,7 @@ Future<void> _openBook(BuildContext context, String title) async {
     );
   }
 }
-
+//Each card shows a background image, title, and format icon.
 class _OptionCard extends StatelessWidget {
   const _OptionCard({
     required this.title,
