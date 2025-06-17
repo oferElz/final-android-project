@@ -3,6 +3,7 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dc566ab0-fefd-4fbd-8ebb-76ea333f5d09" alt="final android project" width="300"/>
 </p>
+
 ## Project Overview
 
 **Final Android Project** is a Flutter mobile application that lets parents and children easily **browse, download, and read illustrated children's books** in either **PDF** or **Word** format.
@@ -35,13 +36,6 @@ lib/
      └── book_details_screen.dart # Book details + download / open
 ```
 
-### Primary Routes
-
-| Route | Screen | Purpose |
-|-------|--------|---------|
-| `/` | `HomePage` | Book grid, format switch |
-| *push* | `BookDetailsScreen` | Cover, description, download / open |
-
 ## Features
 
 - **Dynamic Book List** — Pulled from Firestore, rendered in a responsive 2-column grid
@@ -58,6 +52,7 @@ lib/
 ## Screenshots
 
 Here are some screenshots of our application:
+
 
 1. **Home Page (Grid)**
    <p align="center">
@@ -84,6 +79,7 @@ Here are some screenshots of our application:
    <p align="center">
      <img src="https://github.com/user-attachments/assets/1d659f6c-c47f-4cf8-9ab3-243e70048144" alt="final android project" width="300"/>
    </p>
+   
 ## Project Outcomes
 
 - Delivered a Flutter application with Firebase integration
