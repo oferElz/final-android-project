@@ -68,13 +68,19 @@ Here are some screenshots of our application:
    </p>
 4. **Download in Progress**
    <p align="center">
-     <img src="https://github.com/user-attachments/assets/9d7be82a-ffa6-4acb-8964-763bb52a8f96" alt="final android project" width="300"/>
+     <img src="https://github.com/user-attachments/assets/505ed93b-c34e-4d40-bb82-cefeb68c4b61" alt="final android project" width="300"/>
    </p>
-5. **File Opened - word format**
+
+5. **Download finished, open button appear**
+   <p align="center">
+     <img src="https://github.com/user-attachments/assets/b92f7f00-183f-44af-aa7f-a51f7f6ef99c" width="300"/>
+   </p>
+
+6. **File Opened - word format**
    <p align="center">
      <img src="https://github.com/user-attachments/assets/7919d046-c7a5-40a2-81d6-2270dfabc6d6" alt="final android project" width="300"/>
    </p>
-6. **File Opened - pdf format**
+7. **File Opened - pdf format**
    <p align="center">
      <img src="https://github.com/user-attachments/assets/1d659f6c-c47f-4cf8-9ab3-243e70048144" alt="final android project" width="300"/>
    </p>
